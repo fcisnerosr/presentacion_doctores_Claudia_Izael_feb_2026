@@ -1,0 +1,151 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{float}
+
+% Configuración de márgenes
+\geometry{a4paper, margin=2.5cm}
+
+% Configuración para mostrar código/pseudocódigo
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10},
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny,
+    inputencoding=utf8,
+    extendedchars=true,
+    literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ñ}{{\~n}}1
+}
+
+\title{Documentación Técnica: Automatización de Reportes SACS}
+\author{Equipo de Ingeniería de Datos}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Resumen Ejecutivo}
+
+El propósito de esta herramienta es \textbf{automatizar la consolidación de reportes de fatiga} generados por el software SACS. El objetivo final es transformar miles de líneas de texto desestructurado en una \textbf{Tabla Maestra de Excel} limpia, donde el daño de fatiga de cada elemento estructural esté sumado correctamente a través de todas las etapas de la vida útil de la plataforma.
+
+\section{El Flujo del Proceso (Lógica Interna)}
+
+El script actúa como un motor de procesamiento de datos ETL (Extract, Transform, Load). El sistema ejecuta el siguiente procedimiento lógico:
+
+\subsection{Paso 1: Localización y Filtrado (El ``Scanner'')}
+El archivo de texto contiene muchas secciones irrelevantes (\textit{Input Echo}, etc.).
+\begin{itemize}
+    \item \textbf{Acción:} El motor de lectura escanea el archivo pero \textbf{ignora todo} hasta encontrar la señal de inicio: \texttt{MEMBER FATIGUE REPORT}.
+    \item \textbf{Por qué:} Optimiza la memoria y evita datos falsos positivos.
+\end{itemize}
+
+\subsection{Paso 2: Limpieza y Normalización}
+\begin{itemize}
+    \item \textbf{Filtro de Ruido:} Se eliminan automáticamente los encabezados de página y líneas decorativas de SACS.
+    \item \textbf{Reconstrucción de Filas:} Se maneja la lógica para unir registros que el reporte original divide en múltiples líneas de texto.
+\end{itemize}
+
+\subsection{Paso 3: Traducción Numérica (El ``Decodificador'')}
+SACS utiliza notación científica de formato antiguo (Fortran).
+\begin{itemize}
+    \item \textbf{Problema:} El valor \texttt{.123-4} no es reconocido por sistemas modernos (debería ser \texttt{1.23E-05}).
+    \item \textbf{Solución:} Se aplica una función de Regex \texttt{(?<=\textbackslash d)(?=[+-])} para inyectar la notación "E" y permitir el cálculo matemático.
+\end{itemize}
+
+\subsection{Paso 4: Agregación Aritmética (La ``Suma'')}
+El núcleo de la herramienta cruza información entre $N$ archivos seleccionados por el usuario.
+\begin{itemize}
+    \item Si el Archivo A (años 0-10) indica daño \texttt{0.5} en la Junta J101.
+    \item Y el Archivo B (años 10-20) indica daño \texttt{0.3} en la misma Junta.
+    \item \textbf{Resultado:} El sistema consolida la identidad única y calcula \texttt{0.8} total.
+\end{itemize}
+
+\section{Arquitectura e Interfaz de Usuario}
+
+Para facilitar su adopción por parte del equipo de ingeniería civil, la solución se entrega como una **aplicación de escritorio ejecutable** (.exe) con una arquitectura de separación de responsabilidades:
+
+\begin{itemize}
+    \item \textbf{Backend:} Lógica de negocio (Python/Pandas) que maneja el parsiing y la matemática.
+    \item \textbf{Frontend:} Interfaz gráfica (Tkinter) que abstrae la complejidad del código.
+\end{itemize}
+
+\subsection{Diseño de Interacción (Wireframe)}
+
+Se ha diseñado una interfaz minimalista centrada en la eficiencia del flujo de trabajo del ingeniero. A continuación, se presenta el esquema visual de la aplicación propuesta:
+
+\begin{figure}[H]
+\centering
+\begin{lstlisting}[basicstyle=\ttfamily\small, frame=none, numbers=none, backgroundcolor=\color{white}]
++-------------------------------------------------------+
+|  Procesador de Fatiga SACS v1.0             [-][x]    |
++-------------------------------------------------------+
+|                                                       |
+|   1. SELECCION DE DATOS:                              |
+|   [ > Seleccionar archivos .TXT ]                     |
+|   > Estado: Se han seleccionado 5 archivos.           |
+|                                                       |
+|   2. EJECUCION:                                       |
+|   [ @ PROCESAR Y GENERAR EXCEL ]                      |
+|                                                       |
+|   3. MONITOR DE PROGRESO:                             |
+|   [|||||||||||||||||||| 100% |||||||||||||||||||||]   |
+|   > !Listo! Reporte guardado como 'Consolidado.xlsx'  |
+|                                                       |
++-------------------------------------------------------+
+\end{lstlisting}
+\caption{Wireframe de la Interfaz de Usuario (GUI)}
+\label{fig:wireframe}
+\end{figure}
+
+Esta interfaz permite al usuario operar la herramienta sin conocimientos previos de programación, facilitando su despliegue en cualquier estación de trabajo Windows.
+
+\section{Lógica del Algoritmo (Pseudocódigo del Backend)}
+
+El siguiente bloque detalla la lógica interna que ejecuta el procesamiento.
+
+\begin{lstlisting}[caption={Pseudocódigo Estructural para Procesamiento SACS}]
+ALGORITMO Procesamiento_Fatiga_SACS
+
+DEFINIR PATRONES REGEX:
+    inicio_tabla -> "MEMBER FATIGUE REPORT"
+    formato_numero_sacs -> (?<=\d)(?=[+-])  (detectar signo sin 'E')
+    linea_datos -> Capturar (Junta, Miembro, Grupo, Daño)
+
+AL RECIBIR (lista_archivos) DESDE INTERFAZ:
+    CREAR lista vacia "base_de_datos_total"
+    
+    PARA CADA archivo EN lista_archivos:
+        ACTUALIZAR BARRA_PROGRESO_GUI()
+        
+        PARA CADA linea EN archivo:
+            SI linea contiene "ENCABEZADO": SALTAR
+            SI linea contiene "MEMBER FATIGUE REPORT": ACTIVAR_CAPTURA
+            
+            SI ACTIVAR_CAPTURA:
+                EXTRAER datos con REGEX
+                NORMALIZAR numero (.123-4 -> 1.23E-4)
+                AGREGAR a lista_temporal
+        
+        CONCATENAR lista_temporal A "base_de_datos_total"
+
+    PROCESAR "base_de_datos_total":
+        AGRUPAR POR (Junta, Elemento, Grupo)
+        SUMAR columna (Daño)
+        ORDENAR descendente
+
+    RETORNAR archivo "Reporte_Final.xlsx"
+FIN PROGRAMA
+\end{lstlisting}
+
+\end{document}
