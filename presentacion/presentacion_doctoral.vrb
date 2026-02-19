@@ -1,0 +1,29 @@
+\frametitle{Prototipo de Interfaz Gráfica (GUI)}
+Diseño conceptual para la Etapa 4: Interfaz standalone para consolidación y exportación.
+
+    \begin{center}
+    \tiny
+    \begin{verbatim}
++--------------------------------------------------------------+
+| Procesador de Fatiga SACS v1.0                     [_][ ][X] |
++--------------------------------------------------------------+
+| [+] Seleccionar Archivos SACS                                |
+|                                                              |
+| Archivos seleccionados: (3)                                  |
+| +------------------------------------------------------+     |
+| | * ftglstE1.txt                          [X]          |     |
+| | * ftglstE2.txt                          [X]          |     |
+| | * ftglstE3.txt                          [X]          |     |
+| +------------------------------------------------------+     |
+|                                                              |
+| Opciones de exportación:                                     |
+| Ruta salida: [C:/resultados/fatiga_consolidada.xlsx] [DIR]   |
+| [x] Incluir estadísticas     [x] Incluir gráficos            |
+|                                                              |
+| Progreso:                                                    |
+| [================--------] 65% (Procesando archivo 2/3)      |
+|                                                              |
+|              [PROCESAR]    [RESULTADOS]    [CERRAR]          |
++--------------------------------------------------------------+
+    \end{verbatim}
+    \end{center}

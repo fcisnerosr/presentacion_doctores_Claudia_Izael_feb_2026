@@ -1,0 +1,314 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Theme selection
+\usetheme{Madrid}
+\useoutertheme{miniframes} % Adds top navigation with circles
+\usecolortheme{beaver}
+
+% Packages for graphics and text encoding
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{caption}
+
+% Custom Footer Configuration (Infolines style)
+% Madrid theme already provides a good footer, but we'll enforce the specific format requested
+\setbeamertemplate{navigation symbols}{} % Remove default navigation symbols
+
+% Title information
+\title[Avances Proyecto D. 72044]{Generación de Energía Eólica en Plataformas Marinas en Desuso}
+\subtitle{Reporte de Actividades: Fase 1}
+\author[F. Cisneros]{M. I. Francisco Cisneros}
+\institute[IMP]{Instituto Mexicano del Petróleo}
+\date{19 de Febrero de 2026}
+
+\begin{document}
+
+% Title Page Customization
+\begin{frame}[plain]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=4cm]{../000_logo.png}
+    
+    \vspace{0.5cm}
+    
+    {\Large \textbf{Generación de Energía Eólica en Plataformas Marinas en Desuso}}
+    \vspace{0.3cm}
+    
+    {\large Reporte de Actividades: Fase 1}
+    \vspace{1.0cm}
+    
+    {\textbf{M. I. Francisco Cisneros}}
+    \vspace{0.2cm}
+    
+    {Doctorado en Ingeniería}
+    \vspace{0.2cm}
+    
+    {\textbf{Instituto Mexicano del Petróleo}}
+    \vspace{1.0cm}
+    
+    {19 de Febrero de 2026}
+\end{frame}
+
+% Table of Contents
+\begin{frame}{Contenido}
+    \tableofcontents
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% SECCIÓN 1: ACTIVIDAD 1
+% -----------------------------------------------------------------------------
+\section{Actividad 1: Modelado Estructural Preliminar en SACS}
+
+% Frame 1: Vista General Alámbrica
+\begin{frame}{Configuración Geométrica Global}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth, height=0.6\textheight, keepaspectratio]{../primera_actividad/figs_primera_actividad/001_vista_general_alambrica_de_la_plataforma.png}
+        \caption{Vista general alámbrica de la plataforma}
+    \end{figure}
+    \begin{itemize}
+        \item Definición de la geometría global mediante estructura alámbrica.
+        \item Configuración inicial de elementos principales y secundarios basado en planos estructurales.
+    \end{itemize}
+\end{frame}
+
+% Frame 2: Conectividad en Lecho Marino
+\begin{frame}{Definición de Cimentación}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth, height=0.6\textheight, keepaspectratio]{../primera_actividad/figs_primera_actividad/002_conectividad_y_triangulacion_en_el_lecho_marino.png}
+        \caption{Conectividad y triangulación en el lecho marino}
+    \end{figure}
+    \begin{itemize}
+        \item Modelado de la cimentación incluyendo la interacción con el suelo marino.
+        \item Establecimiento de la conectividad y triangulación base para la estabilidad.
+    \end{itemize}
+\end{frame}
+
+% Frame 3: Verificación Nodal
+\begin{frame}{Validación de Conectividad}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth, height=0.6\textheight, keepaspectratio]{../primera_actividad/figs_primera_actividad/003_verificacion_de_conectividad_nodal_en_base.png}
+        \caption{Verificación de conectividad nodal en base}
+    \end{figure}
+    \begin{itemize}
+        \item Revisión de nudos y condiciones de soporte en la base de la estructura.
+        \item Verificación básica para asegurar la consistencia del modelo numérico.
+    \end{itemize}
+\end{frame}
+
+% Frame 4: Detalle Sólido Piernas/Arriostres
+\begin{frame}{Detalle de Uniones}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth, height=0.6\textheight, keepaspectratio]{../primera_actividad/figs_primera_actividad/004_detalle_en_vista_solida_de_encuentros_piernas_arriostres.png}
+        \caption{Detalle en vista sólida de encuentros piernas-arriostres}
+    \end{figure}
+    \begin{itemize}
+        \item Modelado detallado de la intersección entre piernas y elementos de arriostramiento.
+        \item Inspección visual en modo sólido para detectar interferencias o desconexiones.
+    \end{itemize}
+\end{frame}
+
+% Frame 5: Grupo de Miembros
+\begin{frame}{Administración de Propiedades}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth, height=0.6\textheight, keepaspectratio]{../primera_actividad/figs_primera_actividad/005_ventana_de_grupo_de_miembros_con_secc04.png}
+        \caption{Ventana de grupo de miembros con SECC04}
+    \end{figure}
+    \begin{itemize}
+        \item Organización del modelo mediante grupos de miembros para asignación eficiente de propiedades.
+        \item Uso de herramientas de edición masiva para estandarizar secciones.
+    \end{itemize}
+\end{frame}
+
+% Frame 6: Editor de Sección
+\begin{frame}{Definición de Secciones Tubulares}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth, height=0.6\textheight, keepaspectratio]{../primera_actividad/figs_primera_actividad/006_editor_de_seccion_tubular_secc04.png}
+        \caption{Editor de sección tubular SECC04}
+    \end{figure}
+    \begin{itemize}
+        \item Configuración de propiedades geométricas y de material para elementos tubulares.
+        \item Asignación de parámetros específicos (diámetro, espesor) según especificaciones.
+    \end{itemize}
+\end{frame}
+
+% Frame 7: Vista Coloreada por Grupos
+\begin{frame}{Visualización por Grupos}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth, height=0.6\textheight, keepaspectratio]{../primera_actividad/figs_primera_actividad/007_vista_solida_coloreada_por_grupos.png}
+        \caption{Vista sólida coloreada por grupos}
+    \end{figure}
+    \begin{itemize}
+        \item Verificación visual de la asignación de propiedades mediante código de colores.
+        \item Aseguramiento de la uniformidad en la configuración por bahías y niveles.
+    \end{itemize}
+\end{frame}
+
+% Frame 8: Asignación de Carga Viva
+\begin{frame}{Asignación de Cargas}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth, height=0.6\textheight, keepaspectratio]{../primera_actividad/figs_primera_actividad/008_asignacion_de_carga_viva_a_nudos_de_cubiertas.png}
+        \caption{Asignación de carga viva a nudos de cubiertas}
+    \end{figure}
+    \begin{itemize}
+        \item Aplicación de cargas vivas sobre los nodos de las cubiertas principales.
+        \item Modelado de solicitaciones para análisis preliminares de la estructura.
+    \end{itemize}
+\end{frame}
+
+% Frame 9: Comparativa ETABS vs SACS
+\begin{frame}{Validación Cruzada}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth, height=0.6\textheight, keepaspectratio]{../primera_actividad/figs_primera_actividad/009_comparativa_de_geometria_etabs_izquierda_sacs_derecha.png}
+        \caption{Comparativa de geometría: ETABS (Izq) vs SACS (Der)}
+    \end{figure}
+    \begin{itemize}
+        \item Comparación geométrica con modelos de referencia (ETABS) para validar la topología.
+        \item Consistencia en la geometría global, nodos y elementos entre ambas plataformas.
+    \end{itemize}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% SECCIÓN 2: ACTIVIDAD 2
+% -----------------------------------------------------------------------------
+\section{Actividad 2: Desarrollo del Procesador de Fatiga SACS v1.0}
+
+% Frame 1: Visión General
+\begin{frame}{Visión General del Proyecto}
+    \begin{block}{Objetivo General}
+        Desarrollar una aplicación de escritorio para la consolidación automatizada de reportes de fatiga generados por SACS, permitiendo la suma aritmética de daño acumulado entre etapas temporales.
+    \end{block}
+    
+    \vspace{0.5cm}
+    
+    \begin{itemize}
+        \item \textbf{Entregable:} Aplicación standalone con interfaz gráfica (GUI) dedicada.
+        \item \textbf{Funcionalidades Clave:}
+        \begin{itemize}
+            \item Carga y procesamiento masivo de archivos de reporte FTG (\texttt{.txt}).
+            \item Normalización de datos y corrección de notación científica.
+            \item Suma de daños por elemento estructural único (JOINT + MEMBER + GRUP).
+            \item Exportación automatizada de resultados consolidados a Excel.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+% Frame 2: Trabajo Realizado
+\begin{frame}{Avance Actual: Etapas de Procesamiento}
+    Actualmente se han completado las fases críticas de backend para la ingestión de datos:
+    
+    \begin{block}{Etapa 1: Limpieza y Normalización}
+         Implementación de módulos para transformar datos crudos:
+        \begin{itemize}
+            \item Algoritmos de corrección para notación científica Fortran (ej. \texttt{.123-4} $\to$ \texttt{1.23E-05}).
+            \item Filtrado inteligente de encabezados y líneas no relevantes.
+        \end{itemize}
+    \end{block}
+    
+    \begin{block}{Etapa 2: Parsing y Extracción Estructurada}
+        Desarrollo de un parser robusto para interpretar reportes SACS:
+        \begin{itemize}
+            \item Identificación precisa de secciones \textit{MEMBER FATIGUE DETAIL REPORT}.
+            \item Extracción de identificadores únicos y casos de carga asociados.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+% Frame 3: Detalles Técnicos de Extracción
+\begin{frame}{Detalles Técnicos: Implementación del Parser}
+    El núcleo de extracción utiliza una arquitectura basada en \textbf{Máquina de Estados Finitos} para procesar secuencialmente archivos de texto no estructurados.
+    
+    \begin{columns}
+        \begin{column}{0.48\textwidth}
+            \begin{itemize}
+                \item \textbf{Estados del Parser:}
+                \begin{enumerate}
+                    \item \texttt{SEARCHING}: Búsqueda de secciones relevantes.
+                    \item \texttt{READING\_HEADER}: Procesamiento de metadatos.
+                    \item \texttt{READING\_CASES}: Captura de 16 casos de carga.
+                    \item \texttt{READING\_TOTAL}: Extracción acumulada.
+                \end{enumerate}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Extracción de Daño}
+                Captura de vector de daños circunferenciales (8 puntos):
+                \begin{itemize}
+                    \item \small \texttt{[TOP, TOP-LEFT, ... , TOP-RIGHT]}
+                    \item Identificación de ubicación crítica y daño máximo por elemento.
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% Frame 4: Mockup GUI
+\begin{frame}[fragile]{Prototipo de Interfaz Gráfica (GUI)}
+    Diseño conceptual para la Etapa 4: Interfaz standalone para consolidación y exportación.
+    
+    \begin{center}
+    \tiny
+    \begin{verbatim}
++--------------------------------------------------------------+
+| Procesador de Fatiga SACS v1.0                     [_][ ][X] |
++--------------------------------------------------------------+
+| [+] Seleccionar Archivos SACS                                |
+|                                                              |
+| Archivos seleccionados: (3)                                  |
+| +------------------------------------------------------+     |
+| | * ftglstE1.txt                          [X]          |     |
+| | * ftglstE2.txt                          [X]          |     |
+| | * ftglstE3.txt                          [X]          |     |
+| +------------------------------------------------------+     |
+|                                                              |
+| Opciones de exportación:                                     |
+| Ruta salida: [C:/resultados/fatiga_consolidada.xlsx] [DIR]   |
+| [x] Incluir estadísticas     [x] Incluir gráficos            |
+|                                                              |
+| Progreso:                                                    |
+| [================--------] 65% (Procesando archivo 2/3)      |
+|                                                              |
+|              [PROCESAR]    [RESULTADOS]    [CERRAR]          |
++--------------------------------------------------------------+
+    \end{verbatim}
+    \end{center}
+\end{frame}
+
+% Frame 5: Trabajo Futuro (Roadmap)
+\begin{frame}{Roadmap de Desarrollo: Fases Restantes}
+    El plan de desarrollo contempla las siguientes etapas para completar la versión 1.0:
+    
+    \begin{enumerate}
+        \setcounter{enumi}{2} % Comienza en 3
+        \item \textbf{Consolidación y Suma (Etapa 3):} 
+        \begin{itemize}
+            \item Lógica de agregación para múltiples archivos y validación de consistencia.
+        \end{itemize}
+        
+        \item \textbf{Interfaz Gráfica (Etapa 4):} 
+        \begin{itemize}
+            \item Desarrollo de GUI con \texttt{Tkinter} (selectores, barras de progreso).
+        \end{itemize}
+        
+        \item \textbf{Exportación y Reportes (Etapa 5):} 
+        \begin{itemize}
+            \item Generación de reportes Excel con formato condicional y gráficos.
+        \end{itemize}
+        
+        \item \textbf{Validación y Despliegue (Etapas 6-7):} 
+        \begin{itemize}
+            \item Testing exhaustivo, empaquetado (.exe) y documentación final.
+        \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+\end{document}
